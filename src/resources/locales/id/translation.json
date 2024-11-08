@@ -1,0 +1,11 @@
+{
+  "hello": "NAPA LU",
+  "validation": {
+    "default_message": "Validasi Error",
+    "is_required": "Kolom ini wajib diisi.",
+    "invalid_string": "Kolom ini harus berupa teks yang valid.",
+    "invalid_email": "Masukkan alamat email yang valid.",
+    "invalid_min_length": "Kolom ini harus memiliki setidaknya {{min}} karakter.",
+    "invalid_max_length": "Kolom ini harus memiliki paling banyak {{max}} karakter."
+  }
+}
