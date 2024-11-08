@@ -12,6 +12,7 @@ import fsBackend from 'i18next-fs-backend';
 import { ValidationErrorMiddleware } from './app/middlewares/ValidationErrorMiddleware';
 import { authRoutes } from './routes/auth';
 import { ErrorMiddleware } from './app/middlewares/ErrorMiddleware';
+import { salesPersonRoutes } from './routes/sales-persons';
 
 i18next
   .use(fsBackend)
@@ -44,7 +45,8 @@ app.get('/', async (req, res): Promise<any> => {
   console.log(__dirname + '/resources/locales/{{lng}}/{{ns}}.json');
   return res.send(req.t('hello'));
 });
-app.use('/auth', authRoutes);
+app.use('/api/v1/auth', authRoutes);
+app.use('/api/v1/sales-persons', salesPersonRoutes);
 app.use(ValidationErrorMiddleware);
 app.use(ErrorMiddleware);
 

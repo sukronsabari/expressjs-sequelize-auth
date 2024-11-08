@@ -3,7 +3,9 @@ export interface ApiResponseDTO<T = any> {
   message: string;
   data?: T;
   errors?: Record<string, string[]>;
-  meta?: PaginationMetaDTO;
+  meta?: {
+    pagination: PaginationMetaDTO;
+  };
 }
 
 interface PaginationMetaDTO {
