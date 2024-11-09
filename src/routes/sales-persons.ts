@@ -1,4 +1,5 @@
 import { SalesPersonController } from '@/app/controllers/sales-person/SalesPersonController';
+import { authMiddleware } from '@/app/middlewares/AuthMiddleware';
 import { SalesPersonRepository } from '@/app/repositories/SalesPersonRepository';
 import { SalesPersonService } from '@/app/services/SalesPersonService';
 import { Router } from 'express';
@@ -10,4 +11,4 @@ const salesPersonService = new SalesPersonService(salesPersonRepository);
 const salesPersonController = new SalesPersonController(salesPersonService);
 
 salesPersonRoutes.get('/', salesPersonController.index);
-salesPersonRoutes.post('/', salesPersonController.store);
+salesPersonRoutes.post('/', authMiddleware, salesPersonController.store);

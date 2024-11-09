@@ -1,23 +1,23 @@
 import { DataTypes, Model, Optional } from 'sequelize';
 import { db } from '@/config/database';
 
-export interface IVerificationToken {
+export interface IPasswordResetToken {
   id: number;
   email: string;
   token: string;
   expires: Date;
 }
 
-export type TVerificationTokenCreation = Optional<IVerificationToken, 'id'>;
+export type TPasswordResetTokenCreation = Optional<IPasswordResetToken, 'id'>;
 
-export class VerificationToken extends Model<IVerificationToken, TVerificationTokenCreation> implements IVerificationToken {
+export class PasswordResetToken extends Model<IPasswordResetToken, TPasswordResetTokenCreation> implements IPasswordResetToken {
   public id: number;
   public email: string;
   public token: string;
   public expires: Date;
 }
 
-VerificationToken.init(
+PasswordResetToken.init(
   {
     id: {
       type: DataTypes.INTEGER,
@@ -35,7 +35,7 @@ VerificationToken.init(
     paranoid: false,
     underscored: true,
     freezeTableName: true,
-    tableName: 'verification_tokens',
+    tableName: 'password_reset_tokens',
     indexes: [
       {
         unique: true,

@@ -4,12 +4,7 @@ import { Request, Response, NextFunction } from 'express';
 import { ApiResponseDTO } from '@/app/dtos/ApiResponseDTO';
 import { BaseError } from '@/app/exceptions/BaseError';
 
-export async function ErrorMiddleware(
-  err: any,
-  _req: Request,
-  res: Response,
-  next: NextFunction
-): Promise<Response<ApiResponseDTO> | any> {
+export async function errorMiddleware(err: any, _req: Request, res: Response, next: NextFunction): Promise<Response<ApiResponseDTO> | any> {
   try {
     const responseError: ApiResponseDTO = {
       status: 'failed',

@@ -6,6 +6,10 @@
     "invalid_string": "This field must be a valid string.",
     "invalid_email": "Please enter a valid email address.",
     "invalid_min_length": "This field must have at least {{min}} characters.",
-    "invalid_max_length": "This field must have at most {{max}} characters."
+    "invalid_max_length": "This field must have at most {{max}} characters.",
+    "password_require_lowercase_char": "Password must contain at least one lowercase letter.",
+    "password_require_uppercase_char": "Password must contain at least one uppercase letter.",
+    "password_require_numeric_char": "Password must contain at least one number.",
+    "password_mismatch": "Password confirmation does not match."
   }
 }

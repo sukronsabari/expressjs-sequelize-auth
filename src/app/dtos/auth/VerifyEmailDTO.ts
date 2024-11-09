@@ -1,4 +1,4 @@
 import { z } from 'zod';
-import { EmailVerificationSchema } from '@/app/schemas/EmailVerificationSchema';
+import { emailVerificationSchema } from '@/app/schemas/EmailVerificationSchema';
 
-export type VerifyEmailDTO = z.infer<typeof EmailVerificationSchema>;
+export type VerifyEmailDTO = z.infer<typeof emailVerificationSchema>;

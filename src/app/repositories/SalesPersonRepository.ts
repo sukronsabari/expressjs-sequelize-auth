@@ -6,12 +6,11 @@ export class SalesPersonRepository {
       const offset = (page - 1) * perPage;
       const limit = perPage;
 
-      const { rows: sales, count: totalItems } =
-        await SalesPerson.findAndCountAll({
-          offset,
-          limit,
-          order: [['created_at', 'DESC']],
-        });
+      const { rows: sales, count: totalItems } = await SalesPerson.findAndCountAll({
+        offset,
+        limit,
+        order: [['created_at', 'DESC']],
+      });
 
       return {
         sales,

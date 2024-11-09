@@ -1,10 +1,10 @@
 import asyncHandler from 'express-async-handler';
 import { Request, Response } from 'express';
-import { AuthService } from '@/app/services/AuthService';
 import { ApiResponseDTO } from '@/app/dtos/ApiResponseDTO';
-import { registerSchema } from '@/app/schemas/RegisterSchema';
+import { AuthService } from '@/app/services/AuthService';
+import { newPasswordSchema } from '@/app/schemas/NewPasswordSchema';
 
-export class RegisterUserController {
+export class NewPasswordController {
   private _authService: AuthService;
 
   constructor(authService: AuthService) {
@@ -12,13 +12,13 @@ export class RegisterUserController {
   }
 
   public store = asyncHandler(async (req: Request, res: Response): Promise<void> => {
-    const validatedPayload = registerSchema.parse(req.body);
+    const validatedPayload = newPasswordSchema.parse(req.body);
 
-    await this._authService.register(validatedPayload);
+    await this._authService.setNewPassword(validatedPayload);
 
     const response: ApiResponseDTO = {
-      message: 'User registered successfully, please check your email to confirm you account',
       status: 'success',
+      message: 'The password has been changed successfully.',
     };
     res.status(200).json(response);
   });

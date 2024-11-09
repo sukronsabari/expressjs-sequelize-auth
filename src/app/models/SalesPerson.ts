@@ -7,15 +7,9 @@ export interface ISalesPerson extends ITimestamp {
   name: string;
 }
 
-export type TSalesPersonCreation = Optional<
-  ISalesPerson,
-  'id' | 'created_at' | 'updated_at' | 'deleted_at'
->;
+export type TSalesPersonCreation = Optional<ISalesPerson, 'id' | 'created_at' | 'updated_at' | 'deleted_at'>;
 
-export class SalesPerson
-  extends Model<ISalesPerson, TSalesPersonCreation>
-  implements ISalesPerson
-{
+export class SalesPerson extends Model<ISalesPerson, TSalesPersonCreation> implements ISalesPerson {
   public id: string;
   public name: string;
   public created_at: Date;

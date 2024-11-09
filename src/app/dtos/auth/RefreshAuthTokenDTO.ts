@@ -1,4 +1,4 @@
 import { z } from 'zod';
-import { RefreshAuthTokenSchema } from '@/app/schemas/RefreshAuthTokenSchema';
+import { refreshAuthTokenSchema } from '@/app/schemas/RefreshAuthTokenSchema';
 
-export type RefreshAuthTokenDTO = z.infer<typeof RefreshAuthTokenSchema>;
+export type RefreshAuthTokenDTO = z.infer<typeof refreshAuthTokenSchema>;

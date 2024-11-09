@@ -1,20 +1,12 @@
 import { z } from 'zod';
 import { VALIDATION_ERROR_MESSAGES } from '@/lib/constants';
 
-export const registerSchema = z
+export const newPasswordSchema = z
   .object({
-    name: z
-      .string({
-        required_error: VALIDATION_ERROR_MESSAGES.REQUIRED,
-        invalid_type_error: VALIDATION_ERROR_MESSAGES.INVALID_STRING,
-      })
-      .min(3, { message: VALIDATION_ERROR_MESSAGES.INVALID_MIN_LENGTH }),
-    email: z
-      .string({
-        required_error: VALIDATION_ERROR_MESSAGES.REQUIRED,
-        invalid_type_error: VALIDATION_ERROR_MESSAGES.INVALID_STRING,
-      })
-      .email({ message: VALIDATION_ERROR_MESSAGES.INVALID_EMAIL }),
+    token: z.string({
+      required_error: VALIDATION_ERROR_MESSAGES.REQUIRED,
+      invalid_type_error: VALIDATION_ERROR_MESSAGES.INVALID_STRING,
+    }),
     password: z
       .string({
         required_error: VALIDATION_ERROR_MESSAGES.REQUIRED,
@@ -25,10 +17,6 @@ export const registerSchema = z
       .regex(/[A-Z]/, { message: VALIDATION_ERROR_MESSAGES.PASSWORD_REQUIRE_UPPERCASE_CHAR })
       .regex(/[0-9]/, { message: VALIDATION_ERROR_MESSAGES.PASSWORD_REQUIRE_NUMERIC_CHAR }),
     password_confirmation: z.string({
-      required_error: VALIDATION_ERROR_MESSAGES.REQUIRED,
-      invalid_type_error: VALIDATION_ERROR_MESSAGES.INVALID_STRING,
-    }),
-    sales_person: z.string({
       required_error: VALIDATION_ERROR_MESSAGES.REQUIRED,
       invalid_type_error: VALIDATION_ERROR_MESSAGES.INVALID_STRING,
     }),

@@ -1,9 +1,7 @@
 import jwt from 'jsonwebtoken';
 
-const ACCESS_TOKEN_SECRET =
-  process.env.ACCESS_TOKEN_SECRET || 'your-access-token-secret';
-const REFRESH_TOKEN_SECRET =
-  process.env.REFRESH_TOKEN_SECRET || 'your-refresh-token-secret';
+const ACCESS_TOKEN_SECRET = process.env.ACCESS_TOKEN_SECRET || 'your-access-token-secret';
+const REFRESH_TOKEN_SECRET = process.env.REFRESH_TOKEN_SECRET || 'your-refresh-token-secret';
 
 const ACCESS_TOKEN_EXPIRATION = '15m'; // 15 minutes for access token
 const REFRESH_TOKEN_EXPIRATION = '30d'; // 30 days for refresh token

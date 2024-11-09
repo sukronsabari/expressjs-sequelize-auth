@@ -12,16 +12,7 @@ export interface IUser extends ITimestamp {
   password: string | null;
 }
 
-export type TUserCreation = Optional<
-  IUser,
-  | 'id'
-  | 'email_verified'
-  | 'image'
-  | 'password'
-  | 'created_at'
-  | 'updated_at'
-  | 'deleted_at'
->;
+export type TUserCreation = Optional<IUser, 'id' | 'email_verified' | 'image' | 'password' | 'created_at' | 'updated_at' | 'deleted_at'>;
 
 export class User extends Model<IUser, TUserCreation> implements IUser {
   public id: string;
@@ -55,7 +46,9 @@ User.init(
       type: DataTypes.TEXT,
       allowNull: true,
       set(value: string) {
-        this.setDataValue('password', bcrypt.hashSync(value, 10));
+        const hashedPassword = bcrypt.hashSync(value, 10);
+        console.log('REAL PASS ', value, 'HASHED PASS ', hashedPassword);
+        this.setDataValue('password', hashedPassword);
       },
     },
     created_at: { type: DataTypes.DATE, allowNull: false },

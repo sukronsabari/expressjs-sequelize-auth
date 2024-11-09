@@ -1,10 +1,10 @@
 import asyncHandler from 'express-async-handler';
 import { Request, Response } from 'express';
-import { AuthService } from '@/app/services/AuthService';
 import { ApiResponseDTO } from '@/app/dtos/ApiResponseDTO';
-import { registerSchema } from '@/app/schemas/RegisterSchema';
+import { AuthService } from '@/app/services/AuthService';
+import { sendPasswordResetLinkSchema } from '@/app/schemas/SendPasswordResetLinkSchema';
 
-export class RegisterUserController {
+export class PasswordResetLinkController {
   private _authService: AuthService;
 
   constructor(authService: AuthService) {
@@ -12,13 +12,13 @@ export class RegisterUserController {
   }
 
   public store = asyncHandler(async (req: Request, res: Response): Promise<void> => {
-    const validatedPayload = registerSchema.parse(req.body);
+    const validatedPayload = sendPasswordResetLinkSchema.parse(req.body);
 
-    await this._authService.register(validatedPayload);
+    await this._authService.sendPasswordResetLink(validatedPayload);
 
     const response: ApiResponseDTO = {
-      message: 'User registered successfully, please check your email to confirm you account',
       status: 'success',
+      message: 'Password reset link has been sent.',
     };
     res.status(200).json(response);
   });

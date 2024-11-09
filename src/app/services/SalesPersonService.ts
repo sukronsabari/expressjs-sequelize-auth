@@ -8,10 +8,7 @@ export class SalesPersonService {
   }
 
   public getAllSales = async (params?: { perPage?: number; page?: number }) => {
-    const sales = await this._salesPersonRepository.all(
-      params?.page,
-      params?.perPage
-    );
+    const sales = await this._salesPersonRepository.all(params?.page, params?.perPage);
 
     return sales;
   };

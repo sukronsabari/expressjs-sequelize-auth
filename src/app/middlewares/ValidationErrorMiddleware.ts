@@ -2,12 +2,7 @@ import { ZodError } from 'zod';
 import { Request, Response, NextFunction } from 'express';
 import { ApiResponseDTO } from '@/app/dtos/ApiResponseDTO';
 
-export async function ValidationErrorMiddleware(
-  err: any,
-  req: Request,
-  res: Response,
-  next: NextFunction
-): Promise<Response<ApiResponseDTO> | any> {
+export async function validationErrorMiddleware(err: any, req: Request, res: Response, next: NextFunction): Promise<Response<ApiResponseDTO> | any> {
   if (err instanceof ZodError) {
     const errorResponse = {
       status: 'failed',

@@ -1,9 +1,9 @@
 import { z } from 'zod';
-import { ERROR_MESSAGES } from '@/lib/constants';
+import { VALIDATION_ERROR_MESSAGES } from '@/lib/constants';
 
-export const RefreshAuthTokenSchema = z.object({
+export const refreshAuthTokenSchema = z.object({
   refresh_token: z.string({
-    required_error: ERROR_MESSAGES.REQUIRED,
-    invalid_type_error: ERROR_MESSAGES.INVALID_STRING,
+    required_error: VALIDATION_ERROR_MESSAGES.REQUIRED,
+    invalid_type_error: VALIDATION_ERROR_MESSAGES.INVALID_STRING,
   }),
 });

@@ -11,10 +11,7 @@ export interface IAuthToken {
 
 export type TAuthTokenCreation = Optional<IAuthToken, 'id'>;
 
-export class AuthToken
-  extends Model<IAuthToken, TAuthTokenCreation>
-  implements IAuthToken
-{
+export class AuthToken extends Model<IAuthToken, TAuthTokenCreation> implements IAuthToken {
   public id: number;
   public user_id: string;
   public refresh_token: string;

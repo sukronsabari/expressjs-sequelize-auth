@@ -1,5 +1,4 @@
-import { User } from '@/app/models/User';
-import { RegisterDTO } from '@/app/dtos/auth/RegisterDTO';
+import { TUserCreation, User } from '@/app/models/User';
 
 /**
  * all() - untuk mengambil semua data
@@ -10,7 +9,7 @@ import { RegisterDTO } from '@/app/dtos/auth/RegisterDTO';
   findBy($field, $value) - untuk mencari berdasarkan field tertentu
  */
 export class UserRepository {
-  public create = async (payload: RegisterDTO) => {
+  public create = async (payload: TUserCreation) => {
     try {
       const newUser = await User.create({
         name: payload.name,
@@ -37,6 +36,22 @@ export class UserRepository {
       return updatedUser;
     } catch (error) {
       console.error(error);
+    }
+  };
+
+  public changePassword = async (email: string, password: string) => {
+    try {
+      const updatedUser = await User.update(
+        {
+          password,
+        },
+        { where: { email }, returning: true }
+      );
+
+      return updatedUser;
+    } catch (error) {
+      console.error(error);
+      return null;
     }
   };
 

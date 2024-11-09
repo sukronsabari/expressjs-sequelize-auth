@@ -12,15 +12,15 @@ module.exports = {
     dialectOptions: {
       ssl: {
         require: true,
-        rejectUnauthorized: false
-      }
+        rejectUnauthorized: false,
+      },
     },
     define: {
       underscored: true,
-      createdAt: "created_at",
-      updatedAt: "updated_at",
-      deletedAt: "deleted_at",
-    }
+      createdAt: 'created_at',
+      updatedAt: 'updated_at',
+      deletedAt: 'deleted_at',
+    },
   },
   test: {
     username: process.env.DB_USERNAME,
@@ -32,15 +32,15 @@ module.exports = {
     dialectOptions: {
       ssl: {
         require: true,
-        rejectUnauthorized: false
-      }
+        rejectUnauthorized: false,
+      },
     },
     define: {
       underscored: true,
-      createdAt: "created_at",
-      updatedAt: "updated_at",
-      deletedAt: "deleted_at",
-    }
+      createdAt: 'created_at',
+      updatedAt: 'updated_at',
+      deletedAt: 'deleted_at',
+    },
   },
   production: {
     username: process.env.DB_USERNAME,
@@ -52,14 +52,14 @@ module.exports = {
     dialectOptions: {
       ssl: {
         require: true,
-        rejectUnauthorized: false
-      }
+        rejectUnauthorized: false,
+      },
     },
     define: {
       underscored: true,
-      createdAt: "created_at",
-      updatedAt: "updated_at",
-      deletedAt: "deleted_at",
-    }
-  }
+      createdAt: 'created_at',
+      updatedAt: 'updated_at',
+      deletedAt: 'deleted_at',
+    },
+  },
 };
