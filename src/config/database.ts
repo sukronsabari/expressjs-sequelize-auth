@@ -3,6 +3,7 @@ import { Sequelize } from 'sequelize';
 
 export const db = new Sequelize(process.env!.DATABASE_URL as string, {
   logging: process.env.NODE_ENV === 'development',
+  dialect: 'postgres',
 });
 
 async function testConnection() {
