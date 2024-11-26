@@ -9,5 +9,31 @@
   "arrowParens": "always",
   "proseWrap": "never",
   "htmlWhitespaceSensitivity": "strict",
-  "endOfLine": "lf"
+  "endOfLine": "lf",
+  "plugins": ["@ianvs/prettier-plugin-sort-imports"],
+  "importOrder": [
+    "^(fs|path|os|util)$",
+    "<THIRD_PARTY_MODULES>",
+    "",
+    "^@/config/(.*)$",
+    "^@/lib/(.*)$",
+    "",
+    "^@/app/models/(.*)$",
+    "^@/app/repositories/(.*)$",
+    "^@/app/services/(.*)$",
+    "^@/app/controllers/(.*)$",
+    "^@/app/routes/(.*)$",
+    "",
+    "^@/app/exceptions/(.*)$",
+    "",
+    "^@/app/dtos/(.*)$",
+    "^@/app/schemas/(.*)$",
+    "",
+    "^@/app/enums/(.*)$",
+    "^@/app/(.*)$",
+    "^@/(.*)$",
+    "^[./]"
+  ],
+  "importOrderSeparation": true,
+  "importOrderSortSpecifiers": true
 }

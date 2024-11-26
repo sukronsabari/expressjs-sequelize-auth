@@ -1,20 +1,18 @@
 import 'dotenv/config';
-import express from 'express';
-import morgan from 'morgan';
-import helmet from 'helmet';
+
 import compression from 'compression';
 import cors from 'cors';
+import express from 'express';
+import helmet from 'helmet';
 import i18next from 'i18next';
-import * as i18nMiddleware from 'i18next-http-middleware';
 import fsBackend from 'i18next-fs-backend';
+import * as i18nMiddleware from 'i18next-http-middleware';
+import morgan from 'morgan';
 
+import { errorMiddleware } from './app/middlewares/ErrorMiddleware';
 import { rateLimiter } from './app/middlewares/RateLimiterMiddleware';
 import { validationErrorMiddleware } from './app/middlewares/ValidationErrorMiddleware';
-import { errorMiddleware } from './app/middlewares/ErrorMiddleware';
-
-import { authRoutes } from './routes/auth';
-import { salesPersonRoutes } from './routes/sales-persons';
-// import { authMiddleware } from './app/middlewares/AuthMiddleware';
+import { authRoutes } from './routes/AuthRoutes';
 
 i18next
   .use(fsBackend)
@@ -22,7 +20,6 @@ i18next
   .init({
     backend: {
       loadPath: process.env.TRANSLATION_DIR,
-      // loadPath: path.join(process.cwd(), 'src/locales', '{{lng}}', '{{ns}}.json'),
     },
     fallbackLng: 'en',
     preload: ['en', 'id'],
@@ -59,7 +56,6 @@ app.get('/', async (req, res): Promise<any> => {
   return res.send(req.t('hello'));
 });
 app.use('/api/v1/auth', authRoutes);
-app.use('/api/v1/sales-persons', salesPersonRoutes);
 app.use(validationErrorMiddleware);
 app.use(errorMiddleware);
 

@@ -28,10 +28,6 @@ export const registerSchema = z
       required_error: VALIDATION_ERROR_MESSAGES.REQUIRED,
       invalid_type_error: VALIDATION_ERROR_MESSAGES.INVALID_STRING,
     }),
-    sales_person: z.string({
-      required_error: VALIDATION_ERROR_MESSAGES.REQUIRED,
-      invalid_type_error: VALIDATION_ERROR_MESSAGES.INVALID_STRING,
-    }),
   })
   .refine((data) => data.password === data.password_confirmation, {
     path: ['password_confirmation'],

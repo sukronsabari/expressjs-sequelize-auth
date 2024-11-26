@@ -7,12 +7,14 @@
     "build": "tsc && tsc-alias",
     "dev": "nodemon -r tsconfig-paths/register src/main.ts",
     "prod": "node dist/main.js",
-    "lint": "eslint --fix 'src/**/*.{js,ts}' && prettier --write 'src/**/*.{js,ts,json,md}'",
+    "lint": "eslint --fix ./src/**/*.{js,ts} && prettier --write ./src/**/*.{js,ts,json,md}",
     "migrate": "sequelize db:migrate",
     "migrate:generate": "sequelize migration:generate --name",
     "migrate:undo": "sequelize db:migrate:undo",
     "migrate:undo:all": "sequelize db:migrate:undo:all",
-    "migrate:fresh": "npm run migrate:undo:all && npm run migrate"
+    "migrate:fresh": "npm run migrate:undo:all && npm run migrate",
+    "seed:generate": "sequelize seed:generate --name",
+    "seed": "sequelize db:seed:all"
   },
   "keywords": [],
   "author": "",
@@ -46,6 +48,7 @@
     "zod": "^3.23.8"
   },
   "devDependencies": {
+    "@ianvs/prettier-plugin-sort-imports": "^4.4.0",
     "@types/bcryptjs": "^2.4.6",
     "@types/compression": "^1.7.5",
     "@types/cors": "^2.8.17",

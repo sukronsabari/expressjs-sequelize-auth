@@ -1,36 +1,36 @@
-import { RegisterDTO } from '@/app/dtos/auth/RegisterDTO';
-import { BadRequestError } from '@/app/exceptions/BadRequest';
-import { UserRepository } from '@/app/repositories/UserRepository';
-import { sendPasswordResetEmail, sendVerificationEmail } from '@/lib/mail';
-import { VerificationTokenRepository } from '../repositories/VerificationTokenRepository';
-import { VerifyEmailDTO } from '../dtos/auth/VerifyEmailDTO';
-import { LoginDTO } from '../dtos/auth/LoginDTO';
-import { UnauthorizedError } from '../exceptions/Unauthorized';
 import { compare } from 'bcryptjs';
-import { ForbiddenError } from '../exceptions/Forbidden';
+
 import { generateAccessToken, generateRefreshToken, verifyRefreshToken, type AuthTokenPayload } from '@/lib/jwt';
-import { AuthTokenRepository } from '../repositories/AuthTokenRepository';
-import { RefreshAuthTokenDTO } from '../dtos/auth/RefreshAuthTokenDTO';
-import { SendPasswordResetLinkDTO } from '../dtos/auth/SendPasswordResetLinkDTO';
-import { PasswordResetTokenRepository } from '../repositories/PasswordResetTokenRepository';
-import { NewPasswordDTO } from '../dtos/auth/NewPasswordDTO';
-import { InternalServerError } from '../exceptions/InternalServerError';
+import { sendPasswordResetEmail, sendVerificationEmail } from '@/lib/mail';
+
+import { PasswordResetTokenRepository } from '@/app/repositories/PasswordResetTokenRepository';
+import { UserRepository } from '@/app/repositories/UserRepository';
+import { VerificationTokenRepository } from '@/app/repositories/VerificationTokenRepository';
+
+import { BadRequestError } from '@/app/exceptions/BadRequest';
+import { ForbiddenError } from '@/app/exceptions/Forbidden';
+import { InternalServerError } from '@/app/exceptions/InternalServerError';
+import { UnauthorizedError } from '@/app/exceptions/Unauthorized';
+
+import { LoginDTO } from '@/app/dtos/auth/LoginDTO';
+import { NewPasswordDTO } from '@/app/dtos/auth/NewPasswordDTO';
+import { RefreshAuthTokenDTO } from '@/app/dtos/auth/RefreshAuthTokenDTO';
+import { RegisterDTO } from '@/app/dtos/auth/RegisterDTO';
+import { SendPasswordResetLinkDTO } from '@/app/dtos/auth/SendPasswordResetLinkDTO';
+import { VerifyEmailDTO } from '@/app/dtos/auth/VerifyEmailDTO';
 
 export class AuthService {
   private _userRepository: UserRepository;
   private _verificationTokenRepository: VerificationTokenRepository;
-  private _authTokenRepository: AuthTokenRepository;
   private _passwordResetTokenRepository: PasswordResetTokenRepository;
 
   constructor(
     userRepository: UserRepository,
     verificationTokenRepository: VerificationTokenRepository,
-    authTokenRepository: AuthTokenRepository,
     passwordResetTokenRepository: PasswordResetTokenRepository
   ) {
     this._userRepository = userRepository;
     this._verificationTokenRepository = verificationTokenRepository;
-    this._authTokenRepository = authTokenRepository;
     this._passwordResetTokenRepository = passwordResetTokenRepository;
   }
 
@@ -102,36 +102,9 @@ export class AuthService {
     const accessToken = generateAccessToken(authTokenPayload);
     const refreshToken = generateRefreshToken(authTokenPayload);
 
-    await this._authTokenRepository.create({
-      user_id: user.id,
-      expires: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000),
-      refresh_token: refreshToken,
-    });
-
     return { accessToken, refreshToken };
   };
 
-  public refreshAuthToken = async (payload: RefreshAuthTokenDTO) => {
-    const decodedTokenPayload = verifyRefreshToken(payload.refresh_token);
-
-    if (!decodedTokenPayload) {
-      throw new ForbiddenError('Invalid or expired refresh token');
-    }
-
-    const activeAuthToken = await this._authTokenRepository.findActiveToken(decodedTokenPayload.id, payload.refresh_token);
-
-    if (!activeAuthToken) {
-      throw new ForbiddenError('Invalid or expired refresh token, please login again');
-    }
-
-    const newAccessToken = generateAccessToken({
-      id: decodedTokenPayload.id,
-      name: decodedTokenPayload.name,
-      email: decodedTokenPayload.email,
-    });
-
-    return newAccessToken;
-  };
 
   public sendPasswordResetLink = async (payload: SendPasswordResetLinkDTO) => {
     const user = await this._userRepository.findByEmail(payload.email);

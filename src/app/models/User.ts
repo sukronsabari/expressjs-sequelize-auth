@@ -1,7 +1,9 @@
 import bcrypt from 'bcryptjs';
 import { DataTypes, Model, Optional } from 'sequelize';
-import { ITimestamp } from '@/lib/types';
+import { v4 as uuidv4 } from 'uuid';
+
 import { db } from '@/config/database';
+import { ITimestamp } from '@/lib/types';
 
 export interface IUser extends ITimestamp {
   id: string;
@@ -30,9 +32,9 @@ export class User extends Model<IUser, TUserCreation> implements IUser {
 User.init(
   {
     id: {
-      type: DataTypes.UUID,
+      type: DataTypes.STRING,
       primaryKey: true,
-      defaultValue: DataTypes.UUIDV4(),
+      defaultValue: () => `user-${uuidv4()}`,
       allowNull: false,
     },
     name: {
@@ -47,7 +49,7 @@ User.init(
       allowNull: true,
       set(value: string) {
         const hashedPassword = bcrypt.hashSync(value, 10);
-        console.log('REAL PASS ', value, 'HASHED PASS ', hashedPassword);
+
         this.setDataValue('password', hashedPassword);
       },
     },

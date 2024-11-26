@@ -28,19 +28,4 @@ export class AuthenticatedSessionController {
     };
     res.status(200).json(response);
   });
-
-  public update = asyncHandler(async (req: Request, res: Response): Promise<void> => {
-    const validatedPayload = refreshAuthTokenSchema.parse(req.body);
-
-    const newAccessToken = await this._authService.refreshAuthToken(validatedPayload);
-
-    const response: ApiResponseDTO = {
-      message: 'New refresh token has been generated',
-      status: 'success',
-      data: {
-        access_token: newAccessToken,
-      },
-    };
-    res.status(200).json(response);
-  });
 }

@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from 'express';
-import { cacheClient } from '@/config/cache';
+import { cacheClient } from '@/lib/cache';
 import { TooManyRequestError } from '@/app/exceptions/TooManyRequest';
 
 interface RateLimitOptions {
