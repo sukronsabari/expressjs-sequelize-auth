@@ -2,10 +2,10 @@
   "name": "simple-expressts-boilerplate",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "type": "module",
   "scripts": {
     "build": "tsc && tsc-alias",
-    "dev": "nodemon -r tsconfig-paths/register src/main.ts",
+    "dev": "nodemon --watch src --exec bunx tsx src/main.ts",
     "prod": "node dist/main.js",
     "lint": "eslint --fix ./src/**/*.{js,ts} && prettier --write ./src/**/*.{js,ts,json,md}",
     "migrate": "sequelize db:migrate",
@@ -22,6 +22,8 @@
   "dependencies": {
     "auto-bind": "^5.0.1",
     "bcryptjs": "^2.4.3",
+    "better-auth": "^1.0.5",
+    "body-parser": "^1.20.3",
     "colors": "^1.4.0",
     "compression": "^1.7.5",
     "cors": "^2.8.5",
@@ -35,8 +37,10 @@
     "i18next-http-middleware": "^3.6.0",
     "ioredis": "^5.4.1",
     "jsonwebtoken": "^9.0.2",
+    "kysely": "^0.27.4",
     "morgan": "^1.10.0",
     "multer": "^1.4.5-lts.1",
+    "nanoid": "^5.0.9",
     "pg": "^8.13.1",
     "pg-hstore": "^2.3.4",
     "reflect-metadata": "^0.2.2",
@@ -58,6 +62,7 @@
     "@types/morgan": "^1.9.9",
     "@types/multer": "^1.4.12",
     "@types/node": "^22.9.0",
+    "@types/pg": "^8.11.10",
     "@types/sequelize": "^4.28.20",
     "@typescript-eslint/eslint-plugin": "^8.13.0",
     "@typescript-eslint/parser": "^8.13.0",
@@ -67,9 +72,9 @@
     "nodemon": "^3.1.7",
     "prettier": "^3.3.3",
     "sequelize-cli": "^6.6.2",
-    "ts-node": "^10.9.2",
     "tsc-alias": "^1.8.10",
     "tsconfig-paths": "^4.2.0",
+    "tsx": "^4.19.2",
     "typescript": "^5.6.3"
   }
 }

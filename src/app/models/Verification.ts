@@ -4,29 +4,27 @@ import { nanoid } from 'nanoid';
 import { db } from '@/config/database';
 import { ITimestamp } from '@/lib/types';
 
-export interface IUser extends ITimestamp {
+export interface IVerification extends ITimestamp {
   id: string;
-  name: string;
-  email: string;
-  email_verified: boolean;
-  image: string | null;
+  identifier: string;
+  value: string;
+  expires_at: Date;
 }
 
-export type TUserCreation = Optional<IUser, 'id' | 'email_verified' | 'image' | 'created_at' | 'updated_at' | 'deleted_at'>;
+export type TVerificationCreation = Optional<IVerification, 'id' | 'created_at' | 'updated_at' | 'deleted_at'>;
 
-export class User extends Model<IUser, TUserCreation> implements IUser {
+export class Verification extends Model<IVerification, TVerificationCreation> implements IVerification {
   public id: string;
-  public name!: string;
-  public email: string;
-  public email_verified: boolean;
-  public image: string | null;
+  public identifier: string;
+  public value: string;
+  public expires_at: Date;
 
   public created_at: Date;
   public updated_at: Date;
   public deleted_at: Date | null;
 }
 
-User.init(
+Verification.init(
   {
     id: {
       type: DataTypes.STRING,
@@ -34,13 +32,9 @@ User.init(
       defaultValue: () => nanoid(),
       allowNull: false,
     },
-    name: {
-      type: DataTypes.STRING,
-      allowNull: false,
-    },
-    email: { type: DataTypes.STRING, allowNull: false },
-    email_verified: { type: DataTypes.BOOLEAN, allowNull: false },
-    image: { type: DataTypes.TEXT, allowNull: true },
+    identifier: { type: DataTypes.STRING, allowNull: false },
+    value: { type: DataTypes.STRING, allowNull: false },
+    expires_at: { type: DataTypes.DATE, allowNull: false },
 
     created_at: { type: DataTypes.DATE, allowNull: false },
     updated_at: { type: DataTypes.DATE, allowNull: false },
@@ -55,6 +49,6 @@ User.init(
     createdAt: 'created_at',
     updatedAt: 'updated_at',
     deletedAt: 'deleted_at',
-    tableName: 'users',
+    tableName: 'verifications',
   }
 );

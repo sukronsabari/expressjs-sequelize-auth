@@ -1,4 +1,4 @@
-import { compare } from 'bcryptjs';
+import bcrypt from 'bcryptjs';
 
 import { generateAccessToken, generateRefreshToken, verifyRefreshToken, type AuthTokenPayload } from '@/lib/jwt';
 import { sendPasswordResetEmail, sendVerificationEmail } from '@/lib/mail';
@@ -88,7 +88,7 @@ export class AuthService {
       throw new BadRequestError('Your account is not active, check your mail to active your account');
     }
 
-    const passwordMatch = await compare(payload.password, user.password);
+    const passwordMatch = await bcrypt.compare(payload.password, user.password);
 
     if (!passwordMatch) {
       throw new UnauthorizedError('Invalid credentials');

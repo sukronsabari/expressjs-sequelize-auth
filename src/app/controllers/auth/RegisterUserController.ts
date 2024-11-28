@@ -12,14 +12,17 @@ export class RegisterUserController {
   }
 
   public store = asyncHandler(async (req: Request, res: Response): Promise<void> => {
-    const validatedPayload = registerSchema.parse(req.body);
+    console.log(req.body);
+    res.status(200).json({});
 
-    await this._authService.register(validatedPayload);
+    // const validatedPayload = registerSchema.parse(req.body);
 
-    const response: ApiResponseDTO = {
-      message: 'User registered successfully, please check your email to confirm you account',
-      status: 'success',
-    };
-    res.status(200).json(response);
+    // await this._authService.register(validatedPayload);
+
+    // const response: ApiResponseDTO = {
+    //   message: 'User registered successfully, please check your email to confirm you account',
+    //   status: 'success',
+    // };
+    // res.status(200).json(response);
   });
 }

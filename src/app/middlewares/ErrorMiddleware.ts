@@ -1,5 +1,5 @@
 import multer from 'multer';
-import { JsonWebTokenError } from 'jsonwebtoken';
+import jwt from 'jsonwebtoken';
 import { Request, Response, NextFunction } from 'express';
 import { ApiResponseDTO } from '@/app/dtos/ApiResponseDTO';
 import { BaseError } from '@/app/exceptions/BaseError';
@@ -11,7 +11,7 @@ export async function errorMiddleware(err: any, _req: Request, res: Response, ne
       message: '',
     };
 
-    console.log('CALLED');
+    console.log('CALLED', err);
 
     if (err instanceof multer.MulterError) {
       return res.status(400).json({
@@ -20,7 +20,7 @@ export async function errorMiddleware(err: any, _req: Request, res: Response, ne
       });
     }
 
-    if (err instanceof JsonWebTokenError) {
+    if (err instanceof jwt.JsonWebTokenError) {
       return res.status(401).json({
         ...responseError,
         message: 'Invalid or expired token',
